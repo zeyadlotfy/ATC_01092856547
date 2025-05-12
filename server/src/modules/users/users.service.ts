@@ -20,8 +20,6 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto): Promise<UserResponseDto> {
     const { email, password, ...rest } = createUserDto;
-
-    // Check if user already exists
     const existingUser = await this.prisma.user.findUnique({
       where: { email },
     });
@@ -29,10 +27,8 @@ export class UsersService {
       throw new ConflictException('User with this email already exists');
     }
 
-    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create user
     const user = await this.prisma.user.create({
       data: {
         email,
@@ -41,7 +37,6 @@ export class UsersService {
       },
     });
 
-    // Remove sensitive information
     const { password: _, ...userResponse } = user;
     return userResponse as UserResponseDto;
   }

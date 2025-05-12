@@ -33,6 +33,11 @@ import {
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  /**
+   * @desc    create a new user (Admin only)
+   * @route   POST /users
+   * @access  Private (Admin only)
+   */
   @Post()
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
@@ -46,6 +51,11 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
+  /**
+   * @desc    Get all users (Admin only)
+   * @route   GET /users
+   * @access  Private (Admin only)
+   */
   @Get()
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
@@ -60,6 +70,11 @@ export class UsersController {
     return this.usersService.findAll(page, limit);
   }
 
+  /**
+   * @desc    Get current user profile
+   * @route   GET /users/profile
+   * @access  Private
+   */
   @Get('profile')
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
@@ -73,6 +88,11 @@ export class UsersController {
     return this.usersService.findOne(req.user.sub);
   }
 
+  /**
+   * @desc    Get current user bookings
+   * @route   GET /users/bookings
+   * @access  Private
+   */
   @Get('bookings')
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
@@ -85,6 +105,11 @@ export class UsersController {
     return this.usersService.getUserBookings(req.user.sub);
   }
 
+  /**
+   * @desc    Get user by ID (Admin only)
+   * @route   GET /users/:id
+   * @access  Private (Admin only)
+   */
   @Get(':id')
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
@@ -98,6 +123,11 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
+  /**
+   * @desc    Update user (Admin only)
+   * @route   PATCH /users/:id
+   * @access  Private (Admin only)
+   */
   @Patch(':id')
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
@@ -111,6 +141,11 @@ export class UsersController {
     return this.usersService.update(id, updateUserDto);
   }
 
+  /**
+   * @desc    Update user (Admin only)
+   * @route   PATCH /users/:id
+   * @access  Private (Admin only)
+   */
   @Delete(':id')
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
