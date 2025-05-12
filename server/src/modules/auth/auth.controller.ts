@@ -27,7 +27,7 @@ import {
   ResetPasswordDto,
   VerifyOtpDto,
 } from './dto';
-import { AuthGuard } from 'src/common/gurads/auth.guard';
+import { AuthGuard } from '../../common/gurads/auth.guard';
 
 @ApiTags('auth')
 @Controller('auth')
