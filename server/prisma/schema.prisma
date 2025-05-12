@@ -14,8 +14,157 @@ datasource db {
 }
 
 model User {
+  id              String         @id @default(auto()) @map("_id") @db.ObjectId
+  email           String         @unique
+  password        String
+  firstName       String?
+  lastName        String?
+  role            Role           @default(USER)
+  isActive        Boolean        @default(true)
+  OTP             String?
+  OTPExpiry       DateTime?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  profileImageUrl String?
+  profileImageId  String?
+  language        String         @default("en")
+  bookings        Booking[]
+  refreshTokens   RefreshToken[]
+
+  @@map("users")
+}
+
+model RefreshToken {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  token     String   @unique
+  expiresAt DateTime
+  userId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@map("refresh_tokens")
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+model Category {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String?
+  nameAr      String?
+  events      Event[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("categories")
+}
+
+model Tag {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String   @unique
+  nameAr    String?
+  events    Event[]  @relation(fields: [eventIds], references: [id])
+  eventIds  String[] @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("tags")
+}
+
+model Venue {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String
-  email     String   @unique
+  address   String
+  city      String
+  country   String
+  capacity  Int?
+  events    Event[]
+  nameAr    String?
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("venues")
+}
+
+model Event {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  title            String
+  description      String
+  titleAr          String?
+  descriptionAr    String?
+  startDate        DateTime
+  endDate          DateTime
+  price            Float
+  currency         String   @default("USD")
+  mainImage        String?
+  additionalImages String[]
+  maxAttendees     Int?
+  isPublished      Boolean  @default(false)
+  isHighlighted    Boolean  @default(false)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  categoryId String    @db.ObjectId
+  category   Category  @relation(fields: [categoryId], references: [id])
+  venueId    String    @db.ObjectId
+  venue      Venue     @relation(fields: [venueId], references: [id])
+  tags       Tag[]     @relation(fields: [tagIds], references: [id])
+  tagIds     String[]  @db.ObjectId
+  bookings   Booking[]
+
+  @@map("events")
+}
+
+model Booking {
+  id               String        @id @default(auto()) @map("_id") @db.ObjectId
+  userId           String        @db.ObjectId
+  user             User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  eventId          String        @db.ObjectId
+  event            Event         @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  status           BookingStatus @default(CONFIRMED)
+  quantity         Int           @default(1)
+  totalPrice       Float
+  bookingDate      DateTime      @default(now())
+  cancellationDate DateTime?
+  feedback         String?
+  rating           Int?          @db.Int
+
+  @@unique([userId, eventId])
+  @@map("bookings")
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+model Setting {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  key         String   @unique
+  value       String
+  description String?
+  isPublic    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("settings")
+}
+
+model AuditLog {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  action     String
+  entityType String
+  entityId   String
+  userId     String   @db.ObjectId
+  details    Json?
+  ipAddress  String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+
+  @@map("audit_logs")
 }
