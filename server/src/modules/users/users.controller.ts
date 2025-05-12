@@ -9,6 +9,8 @@ import {
   Query,
   UseGuards,
   Req,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -16,17 +18,20 @@ import {
   ApiResponse,
   ApiQuery,
   ApiBearerAuth,
+  ApiConsumes,
+  ApiBody,
 } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { Role } from '@prisma/client';
-import { AuthGuard } from 'src/common/gurads/auth.guard';
-import { RolesGuard } from 'src/common/gurads/roles.guard';
-import { Roles } from 'src/common/decorators/roles/roles.decorator';
+import { AuthGuard } from '../../common/gurads/auth.guard';
+import { RolesGuard } from '../../common/gurads/roles.guard';
+import { Roles } from '../../common/decorators/roles/roles.decorator';
 import {
   CreateUserDto,
   UpdateUserDto,
   UserResponseDto,
 } from './dtos/users.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @ApiTags('users')
 @Controller('users')
@@ -41,6 +46,7 @@ export class UsersController {
   @Post()
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Create a new user (Admin only)' })
   @ApiResponse({
     status: 201,
@@ -59,6 +65,7 @@ export class UsersController {
   @Get()
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Get all users (Admin only)' })
   @ApiQuery({ name: 'page', required: false, type: Number })
   @ApiQuery({ name: 'limit', required: false, type: Number })
@@ -77,6 +84,7 @@ export class UsersController {
    */
   @Get('profile')
   @UseGuards(AuthGuard)
+  @ApiBearerAuth()
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get current user profile' })
   @ApiResponse({
@@ -113,6 +121,7 @@ export class UsersController {
   @Get(':id')
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Get user by ID (Admin only)' })
   @ApiResponse({
     status: 200,
@@ -131,6 +140,7 @@ export class UsersController {
   @Patch(':id')
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Update user (Admin only)' })
   @ApiResponse({
     status: 200,
@@ -142,12 +152,60 @@ export class UsersController {
   }
 
   /**
-   * @desc    Update user (Admin only)
-   * @route   PATCH /users/:id
+   * @desc    Update user profile
+   * @route   PATCH /users/profile
+   * @access  Private
+   */
+  @Patch('profile')
+  @UseGuards(AuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Update user profile' })
+  @ApiResponse({
+    status: 200,
+    description: 'User profile updated successfully',
+    type: UserResponseDto,
+  })
+  async updateProfile(@Req() req, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(req.user.sub, updateUserDto);
+  }
+
+  /**
+   * @desc    update user avatar
+   * @route   PATCH /users/profile/avatar
+   * @access  private
+   */
+  @Patch('profile/avatar')
+  @UseGuards(AuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Update user avatar' })
+  @ApiResponse({
+    status: 200,
+    description: 'User avatar updated successfully',
+    type: UserResponseDto,
+  })
+  @ApiConsumes('multipart/form-data')
+  @UseInterceptors(FileInterceptor('avatar'))
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        avatar: { type: 'string', format: 'binary' },
+      },
+      required: ['avatar'],
+    },
+  })
+  async updateAvatar(@Req() req, @UploadedFile() avatar) {
+    return this.usersService.updateAvatar(req.user.sub, avatar);
+  }
+
+  /**
+   * @desc    Delete user (Admin only)
+   * @route   Delete /users/:id
    * @access  Private (Admin only)
    */
   @Delete(':id')
   @UseGuards(AuthGuard, RolesGuard)
+  @ApiBearerAuth()
   @Roles(Role.ADMIN)
   @ApiOperation({ summary: 'Delete user (Admin only)' })
   @ApiResponse({

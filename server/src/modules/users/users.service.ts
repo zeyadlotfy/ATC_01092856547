@@ -3,6 +3,7 @@ import {
   Logger,
   NotFoundException,
   ConflictException,
+  BadRequestException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
@@ -11,12 +12,16 @@ import {
   UpdateUserDto,
   UserResponseDto,
 } from './dtos/users.dto';
+import { CloudinaryService } from '../cloudinary/cloudinary.service';
 
 @Injectable()
 export class UsersService {
   private readonly logger = new Logger(UsersService.name);
 
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private cloudinary: CloudinaryService,
+  ) {}
 
   async create(createUserDto: CreateUserDto): Promise<UserResponseDto> {
     const { email, password, ...rest } = createUserDto;
@@ -129,6 +134,39 @@ export class UsersService {
       this.logger.error(`Failed to update user: ${error.message}`);
       throw new NotFoundException(`User with ID ${id} not found`);
     }
+  }
+
+  async updateAvatar(userId: string, avatar) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!user) {
+      throw new NotFoundException(`User not found`);
+    }
+
+    if (avatar) {
+      const buffer = await this.cloudinary.uploadFile(avatar);
+      if (buffer) {
+        if (user.profileImageId && user.profileImageId !== null) {
+          await this.cloudinary.deleteFile(user.profileImageId);
+        }
+        await this.prisma.user.update({
+          where: { id: userId },
+          data: {
+            profileImageUrl: buffer.url,
+            profileImageId: buffer.public_id,
+          },
+        });
+      } else {
+        throw new BadRequestException('Invalid image format');
+      }
+    } else {
+      throw new BadRequestException('Invalid image format');
+    }
+    return {
+      message: 'Avatar updated successfully',
+    };
   }
 
   async remove(id: string): Promise<void> {

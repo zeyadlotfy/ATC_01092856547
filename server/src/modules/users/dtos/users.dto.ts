@@ -89,14 +89,6 @@ export class UpdateUserDto {
   @IsOptional()
   @IsString()
   language?: string;
-
-  @ApiProperty({
-    example: 'https://example.com/profile.jpg',
-    required: false,
-  })
-  @IsOptional()
-  @IsString()
-  profileImageUrl?: string;
 }
 
 export class UserResponseDto {
