@@ -10,7 +10,7 @@ import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
   imports: [
     MailerModule.forRootAsync({
       useFactory: async (config: ConfigService) => {
-        const templateDir = join(__dirname, '../email-templates');
+        const templateDir = join(__dirname, '../../../email-templates');
         console.log('Template directory:', templateDir);
 
         return {

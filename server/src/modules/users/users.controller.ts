@@ -1,0 +1,125 @@
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+  UseGuards,
+  Req,
+} from '@nestjs/common';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiQuery,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
+import { UsersService } from './users.service';
+import { Role } from '@prisma/client';
+import { AuthGuard } from 'src/common/gurads/auth.guard';
+import { RolesGuard } from 'src/common/gurads/roles.guard';
+import { Roles } from 'src/common/decorators/roles/roles.decorator';
+import {
+  CreateUserDto,
+  UpdateUserDto,
+  UserResponseDto,
+} from './dtos/users.dto';
+
+@ApiTags('users')
+@Controller('users')
+export class UsersController {
+  constructor(private readonly usersService: UsersService) {}
+
+  @Post()
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(Role.ADMIN)
+  @ApiOperation({ summary: 'Create a new user (Admin only)' })
+  @ApiResponse({
+    status: 201,
+    description: 'User created successfully',
+    type: UserResponseDto,
+  })
+  async create(@Body() createUserDto: CreateUserDto) {
+    return this.usersService.create(createUserDto);
+  }
+
+  @Get()
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(Role.ADMIN)
+  @ApiOperation({ summary: 'Get all users (Admin only)' })
+  @ApiQuery({ name: 'page', required: false, type: Number })
+  @ApiQuery({ name: 'limit', required: false, type: Number })
+  @ApiResponse({
+    status: 200,
+    description: 'Users retrieved successfully',
+  })
+  async findAll(@Query('page') page?: number, @Query('limit') limit?: number) {
+    return this.usersService.findAll(page, limit);
+  }
+
+  @Get('profile')
+  @UseGuards(AuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Get current user profile' })
+  @ApiResponse({
+    status: 200,
+    description: 'User profile retrieved successfully',
+    type: UserResponseDto,
+  })
+  async getProfile(@Req() req) {
+    return this.usersService.findOne(req.user.sub);
+  }
+
+  @Get('bookings')
+  @UseGuards(AuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Get current user bookings' })
+  @ApiResponse({
+    status: 200,
+    description: 'User bookings retrieved successfully',
+  })
+  async getUserBookings(@Req() req) {
+    return this.usersService.getUserBookings(req.user.sub);
+  }
+
+  @Get(':id')
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(Role.ADMIN)
+  @ApiOperation({ summary: 'Get user by ID (Admin only)' })
+  @ApiResponse({
+    status: 200,
+    description: 'User retrieved successfully',
+    type: UserResponseDto,
+  })
+  async findOne(@Param('id') id: string) {
+    return this.usersService.findOne(id);
+  }
+
+  @Patch(':id')
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(Role.ADMIN)
+  @ApiOperation({ summary: 'Update user (Admin only)' })
+  @ApiResponse({
+    status: 200,
+    description: 'User updated successfully',
+    type: UserResponseDto,
+  })
+  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(id, updateUserDto);
+  }
+
+  @Delete(':id')
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(Role.ADMIN)
+  @ApiOperation({ summary: 'Delete user (Admin only)' })
+  @ApiResponse({
+    status: 200,
+    description: 'User deleted successfully',
+  })
+  async remove(@Param('id') id: string) {
+    return this.usersService.remove(id);
+  }
+}
