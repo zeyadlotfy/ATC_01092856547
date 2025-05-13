@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { EventsController } from './events.controller';
-import { EventsService } from './events.service';
+import { BookingController } from './booking.controller';
+import { BookingService } from './booking.service';
 import { PrismaModule } from '../prisma/prisma.module';
 import { AuthModule } from '../auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { CloudinaryModule } from '../cloudinary/cloudinary.module';
 import { AuditLogModule } from '../audit-log/audit-log.module';
+import { CloudinaryModule } from '../cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -25,7 +25,7 @@ import { AuditLogModule } from '../audit-log/audit-log.module';
     AuditLogModule,
     CloudinaryModule,
   ],
-  controllers: [EventsController],
-  providers: [EventsService],
+  controllers: [BookingController],
+  providers: [BookingService],
 })
-export class EventsModule {}
+export class BookingModule {}

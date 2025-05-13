@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
-import { EventsController } from './events.controller';
-import { EventsService } from './events.service';
+import { AuditLogController } from './audit-log.controller';
+import { AuditLogService } from './audit-log.service';
 import { PrismaModule } from '../prisma/prisma.module';
 import { AuthModule } from '../auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CloudinaryModule } from '../cloudinary/cloudinary.module';
-import { AuditLogModule } from '../audit-log/audit-log.module';
 
 @Module({
   imports: [
@@ -22,10 +21,10 @@ import { AuditLogModule } from '../audit-log/audit-log.module';
         },
       }),
     }),
-    AuditLogModule,
     CloudinaryModule,
   ],
-  controllers: [EventsController],
-  providers: [EventsService],
+  controllers: [AuditLogController],
+  providers: [AuditLogService],
+  exports: [AuditLogService],
 })
-export class EventsModule {}
+export class AuditLogModule {}

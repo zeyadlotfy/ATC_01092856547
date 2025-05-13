@@ -90,22 +90,22 @@ model Venue {
 }
 
 model Event {
-  id               String   @id @default(auto()) @map("_id") @db.ObjectId
-  title            String
-  description      String
-  titleAr          String?
-  descriptionAr    String?
-  startDate        DateTime
-  endDate          DateTime
-  price            Float
-  currency         String   @default("USD")
-  mainImage        String?
-  additionalImages String[]
-  maxAttendees     Int?
-  isPublished      Boolean  @default(false)
-  isHighlighted    Boolean  @default(false)
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  title         String
+  description   String
+  titleAr       String?
+  descriptionAr String?
+  startDate     DateTime
+  endDate       DateTime
+  price         Float
+  currency      String   @default("USD")
+  ImageUrl      String?
+  imageId       String?
+  maxAttendees  Int?
+  isPublished   Boolean  @default(false)
+  isHighlighted Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   categoryId String    @db.ObjectId
   category   Category  @relation(fields: [categoryId], references: [id])

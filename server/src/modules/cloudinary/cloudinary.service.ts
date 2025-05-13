@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { v2 as cloudinary } from 'cloudinary';
 import { CloudinaryResponse } from './cloudinary-response';
-import { Multer } from 'multer';
 const streamifier = require('streamifier');
 
 @Injectable()
 export class CloudinaryService {
-  uploadFile(file: Multer.File): Promise<CloudinaryResponse> {
+  uploadFile(file: Express.Multer.File): Promise<CloudinaryResponse> {
     return new Promise<CloudinaryResponse>((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
         { folder: 'Event-Booking' },
@@ -19,11 +18,11 @@ export class CloudinaryService {
       streamifier.createReadStream(file.buffer).pipe(uploadStream);
     });
   }
-  uploadFiles(files: Multer.File[]): Promise<CloudinaryResponse[]> {
+  uploadFiles(files: Express.Multer.File[]): Promise<CloudinaryResponse[]> {
     return Promise.all(files.map(this.createUploadPromise));
   }
 
-  createUploadPromise(file: Multer.File) {
+  createUploadPromise(file: Express.Multer.File) {
     return new Promise<CloudinaryResponse>((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
         { folder: 'Event-Booking' },
