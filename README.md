@@ -230,7 +230,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 👤 Author
 
-Created by [Zeyad Lotfy] for the Areeb Technology Competition 2025.
+Created by [Zeyad Lotfy](https://zeyadlotfy.vercel.app)
+for the Areeb Technology Competition 2025.
 
 ## 🙏 Acknowledgements
 
