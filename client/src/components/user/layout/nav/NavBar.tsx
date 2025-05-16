@@ -20,6 +20,7 @@ export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [user, setUser] = useState(null);
+    const [notificationOpen, setNotificationOpen] = useState(false);
 
 
     const toggleLanguage = () => {
@@ -119,6 +120,18 @@ export default function Navbar() {
         }
     }, [isLoaded, isRtl, locale]);
 
+    useEffect(() => {
+        const handleClickOutside = (event: any) => {
+            if (notificationOpen && !event.target.closest('.notification-dropdown')) {
+                setNotificationOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [notificationOpen]);
 
     if (!isLoaded) {
         return (
@@ -183,9 +196,7 @@ export default function Navbar() {
                             )}
                         </div>
 
-                        {/* Right Side Items (Theme toggle, auth buttons) */}
                         <div className="flex items-center">
-                            {/* Language Switch - Modified to use direct cookie approach */}
                             <button
                                 onClick={toggleLanguage}
                                 className={`px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300 ${isRtl ? 'ml-4' : 'mr-4'}`}
@@ -193,7 +204,6 @@ export default function Navbar() {
                                 {locale === 'en' ? 'العربية' : 'English'}
                             </button>
 
-                            {/* Theme toggle with enhanced animation */}
                             <button
                                 onClick={toggleTheme}
                                 className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300 hover:scale-110 group"
@@ -206,19 +216,52 @@ export default function Navbar() {
                                 )}
                             </button>
 
-                            {/* Conditional rendering based on auth state */}
                             {isLoggedIn ? (
                                 <div className={`flex items-center ${isRtl ? 'mr-4' : 'ml-4'}`}>
-                                    {/* Notifications button with animation */}
-                                    <button
-                                        className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300 relative hover:scale-110 mx-2"
-                                        aria-label="Notifications"
-                                    >
-                                        <Bell className="h-5 w-5 text-gray-700 dark:text-gray-200" />
-                                        <span className="absolute top-0 right-0 block h-2.5 w-2.5 rounded-full ring-2 ring-white dark:ring-gray-900 bg-red-500 animate-ping"></span>
-                                    </button>
+                                    <div className="relative">
+                                        <button
+                                            onClick={() => setNotificationOpen(!notificationOpen)}
+                                            className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300 relative hover:scale-110 mx-2"
+                                            aria-label="Notifications"
+                                        >
+                                            <Bell className="h-5 w-5 text-gray-700 dark:text-gray-200" />
+                                            <span className="absolute top-0 right-0 block h-2.5 w-2.5 rounded-full ring-2 ring-white dark:ring-gray-900 bg-red-500"></span>
+                                        </button>
 
-                                    {/* User profile dropdown */}
+                                        {notificationOpen && (
+                                            <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-50 border border-gray-200 dark:border-gray-700 overflow-hidden">
+                                                <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 dark:border-gray-700">
+                                                    <span className="font-medium text-gray-800 dark:text-gray-200">
+                                                        {t('notifications.title')}
+                                                    </span>
+                                                    <span className="text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 rounded-full px-2 py-0.5">
+                                                        0
+                                                    </span>
+                                                </div>
+
+                                                <div className="max-h-60 overflow-y-auto">
+                                                    <div className="flex flex-col items-center justify-center py-8 px-4 text-center">
+                                                        <div className="bg-gray-100 dark:bg-gray-700 p-3 rounded-full mb-4">
+                                                            <Bell className="h-6 w-6 text-gray-500 dark:text-gray-400" />
+                                                        </div>
+                                                        <p className="text-gray-600 dark:text-gray-300 text-sm">
+                                                            {t('notifications.empty')}
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                <div className="border-t border-gray-200 dark:border-gray-700 px-4 py-2">
+                                                    <button
+                                                        className="text-sm text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 w-full text-center"
+                                                        onClick={() => setNotificationOpen(false)}
+                                                    >
+                                                        {t('notifications.closeButton')}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+
                                     <UserDropdown user={user} />
                                 </div>
                             ) : (

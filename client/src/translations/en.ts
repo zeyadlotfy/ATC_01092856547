@@ -901,7 +901,13 @@ const en = {
       privacy: "Privacy Policy",
       faq: "FAQ"
     }
-  }
+  },
+  notifications: {
+    title: "Notifications",
+    empty: "No notifications yet",
+    closeButton: "Close",
+    markAllRead: "Mark all as read"
+  },
 };
 
 export default en;

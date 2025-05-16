@@ -902,7 +902,13 @@ const ar = {
       privacy: "سياسة الخصوصية",
       faq: "الأسئلة المتكررة"
     }
-  }
+  },
+  notifications: {
+    title: "الإشعارات",
+    empty: "لا توجد إشعارات حتى الآن",
+    closeButton: "إغلاق",
+    markAllRead: "تعيين الكل كمقروء"
+  },
 };
 
 export default ar;
