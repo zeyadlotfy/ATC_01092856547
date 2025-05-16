@@ -112,9 +112,20 @@ export class UsersService {
     updateUserDto: UpdateUserDto,
   ): Promise<UserResponseDto> {
     try {
+      const user = await this.prisma.user.findUnique({
+        where: { id },
+      });
+      if (!user) {
+        throw new NotFoundException(`User with ID ${id} not found`);
+      }
+
       const updatedUser = await this.prisma.user.update({
         where: { id },
-        data: updateUserDto,
+        data: {
+          firstName: updateUserDto.firstName,
+          lastName: updateUserDto.lastName,
+          language: updateUserDto.language,
+        },
         select: {
           id: true,
           email: true,

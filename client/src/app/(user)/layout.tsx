@@ -7,8 +7,8 @@ import { IBM_Plex_Sans_Arabic } from "next/font/google";
 import "../globals.css";
 import { ThemeProvider } from "@/components/providers/themeProvider";
 import { ToastContainer } from "react-toastify";
-import LanguageSwitcher from "@/components/en/layout/nav/LanguageSwitcher";
-import ButtonTheme from "@/components/en/layout/ButtonTheme";
+import Navbar from "@/components/user/layout/nav/NavBar";
+import Footer from "@/components/user/home/Footer";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -20,7 +20,6 @@ const geistMono = Geist_Mono({
     subsets: ["latin"],
 });
 
-// Font for Arabic
 const plexArabic = IBM_Plex_Sans_Arabic({
     variable: "--font-plex-arabic",
     subsets: ["arabic"],
@@ -73,11 +72,9 @@ export default function RootLayout({
                         theme="dark"
                         rtl={currentLocale === "ar"}
                     />
-                    <div className="flex justify-between p-4">
-                        <ButtonTheme />
-                        <LanguageSwitcher />
-                    </div>
+                    <Navbar />
                     {children}
+                    <Footer />
                 </ThemeProvider>
             </body>
         </html>
