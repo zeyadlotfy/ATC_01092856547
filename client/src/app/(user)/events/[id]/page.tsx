@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { redirect, useParams, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useTranslations } from "@/hooks/useTranslations";
 import axios from "axios";
@@ -240,8 +240,16 @@ const EventDetailPage = () => {
                     setBookingStatus("idle");
                 }, 2000);
             }
+            else {
+                router.push("/login");
+
+                setBookingStatus("error");
+                toast.error(t("event.bookingError"));
+            }
         } catch (error) {
             console.error("Booking error:", error);
+            router.push("/login");
+
             setBookingStatus("error");
             toast.error(t("event.bookingError"));
             setBookingStatus("idle");
