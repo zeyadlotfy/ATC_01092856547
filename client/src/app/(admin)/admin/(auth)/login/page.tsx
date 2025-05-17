@@ -286,19 +286,7 @@ const AdminLogin = () => {
                     </motion.form>
 
 
-                    <motion.div
-                        className="mt-6 text-center text-sm"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 1.2 }}
-                    >
-                        <p className={theme === "dark" ? "text-gray-300" : "text-gray-600"}>
-                            {t("login.noAccount")}{" "}
-                            <a href="/admin/signup" className="font-medium text-purple-600 hover:text-purple-500 dark:text-purple-400 dark:hover:text-purple-300">
-                                {t("login.signUp")}
-                            </a>
-                        </p>
-                    </motion.div>
+
                 </div>
             </motion.div>
 

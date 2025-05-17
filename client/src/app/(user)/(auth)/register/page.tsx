@@ -310,7 +310,7 @@ export default function RegisterPage() {
                             />
                             <label htmlFor="terms" className={`${isRtl ? 'mr-2' : 'ml-2'} block text-sm text-gray-900 dark:text-gray-300`}>
                                 {t('user.register.agreeToTerms')}{' '}
-                                <Link href="/terms" className="text-purple-600 hover:text-purple-500 dark:text-purple-400">
+                                <Link href="/" className="text-purple-600 hover:text-purple-500 dark:text-purple-400">
                                     {t('user.register.termsOfService')}
                                 </Link>
                             </label>
@@ -334,41 +334,6 @@ export default function RegisterPage() {
                         </div>
                     </form>
 
-                    <div className="mt-6">
-                        <div className="relative">
-                            <div className="absolute inset-0 flex items-center">
-                                <div className="w-full border-t border-gray-300 dark:border-gray-700"></div>
-                            </div>
-                            <div className="relative flex justify-center text-sm">
-                                <span className="px-2 bg-white dark:bg-gray-800 text-gray-500">
-                                    {t('user.register.orContinueWith')}
-                                </span>
-                            </div>
-                        </div>
-
-                        <div className="mt-6 grid grid-cols-2 gap-3">
-                            <button
-                                type="button"
-                                className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors duration-300"
-                            >
-                                <span className="sr-only">Sign up with Google</span>
-                                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path d="M12.545 12.151c0 .866-.563 1.599-1.348 1.856v-3.712c.785.257 1.348.99 1.348 1.856zm-.702-3.267v1.06c-.179-.052-.367-.085-.572-.085-1.105 0-2.002.9-2.002 2.007s.896 2.007 2.002 2.007c.205 0 .393-.033.572-.085v1.06c-.183.042-.376.064-.572.064-1.682 0-3.045-1.367-3.045-3.046s1.363-3.046 3.045-3.046c.196 0 .389.022.572.064zm6.229 1.691l-1.369-.79v-.002L12 7.582v10.836l4.703-2.199 1.369-.79z" />
-                                    <path d="M20.345 14.355c0-.169-.032-.331-.091-.482l-3.064-5.321c-.288-.5-.822-.809-1.397-.809H8.207c-.575 0-1.109.309-1.397.809L3.746 13.873c-.059.151-.091.313-.091.482v3.09c0 .74.596 1.337 1.335 1.337h14.02c.739 0 1.335-.597 1.335-1.337v-3.09z" />
-                                </svg>
-                            </button>
-
-                            <button
-                                type="button"
-                                className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors duration-300"
-                            >
-                                <span className="sr-only">Sign up with Facebook</span>
-                                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                                    <path fillRule="evenodd" d="M20 10c0-5.523-4.477-10-10-10S0 4.477 0 10c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V10h2.54V7.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V10h2.773l-.443 2.89h-2.33v6.988C16.343 19.128 20 14.991 20 10z" clipRule="evenodd" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
                 </div>
             </div>
 

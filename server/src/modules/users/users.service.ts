@@ -197,4 +197,28 @@ export class UsersService {
       },
     });
   }
+
+  async getAdminStats() {
+    const totalUsers = await this.prisma.user.count();
+    const totalEvents = await this.prisma.event.count();
+    const totalVenues = await this.prisma.venue.count();
+    const totalBookings = await this.prisma.booking.count();
+    const totalTags = await this.prisma.tag.count();
+    const totalCategories = await this.prisma.category.count();
+    const activeUsers = await this.prisma.user.count({
+      where: {
+        isActive: true,
+      },
+    });
+
+    return {
+      totalUsers,
+      totalEvents,
+      totalBookings,
+      totalVenues,
+      totalTags,
+      totalCategories,
+      activeUsers,
+    };
+  }
 }

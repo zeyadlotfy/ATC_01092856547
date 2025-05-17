@@ -215,4 +215,22 @@ export class UsersController {
   async remove(@Param('id') id: string) {
     return this.usersService.remove(id);
   }
+
+  /**
+   * @desc    Get Admin Stats for dashboard
+   * @route   DELETE /users/admin/stats
+   * @access  Private (Admin only)
+   */
+  @Get('admin/stats')
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(Role.ADMIN)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Get Admin Stats for dashboard' })
+  @ApiResponse({
+    status: 200,
+    description: 'Admin stats retrieved successfully',
+  })
+  async getAdminStats() {
+    return this.usersService.getAdminStats();
+  }
 }

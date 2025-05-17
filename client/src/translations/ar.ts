@@ -927,6 +927,36 @@ const ar = {
     closeButton: "إغلاق",
     markAllRead: "تعيين الكل كمقروء",
   },
+  admin: {
+    dashboard: {
+      goodMorning: "صباح الخير",
+      goodAfternoon: "مساء الخير",
+      goodEvening: "طاب مساؤك",
+      welcome: "مرحبًا بك في لوحة تحكم المسؤول",
+      totalUsers: "إجمالي المستخدمين",
+      totalEvents: "إجمالي الفعاليات",
+      totalVenues: "إجمالي الأماكن",
+      totalBookings: "إجمالي الحجوزات",
+      activeUsers: "المستخدمين النشطين",
+      upcomingEvents: "الفعاليات القادمة",
+      totalRevenue: "إجمالي الإيرادات",
+      categories: "الفئات",
+      systemStatus: "حالة النظام",
+      allSystemsOperational: "جميع الأنظمة تعمل",
+      apiStatus: "نظام API",
+      databaseStatus: "قاعدة البيانات",
+      storageStatus: "التخزين",
+      quickActions: "إجراءات سريعة",
+      addEvent: "إضافة فعالية",
+      addUser: "إضافة مستخدم",
+      addVenue: "إضافة مكان",
+      viewReports: "عرض التقارير",
+      tags: "الوسوم",
+      errorTitle: "فشل في تحميل لوحة التحكم",
+      errorDescription:
+        "حدثت مشكلة أثناء تحميل بيانات لوحة التحكم. يرجى تحديث الصفحة والمحاولة مرة أخرى.",
+    },
+  },
 };
 
 export default ar;

@@ -924,6 +924,36 @@ const en = {
     closeButton: "Close",
     markAllRead: "Mark all as read",
   },
+  admin: {
+    dashboard: {
+      goodMorning: "Good morning",
+      goodAfternoon: "Good afternoon",
+      goodEvening: "Good evening",
+      welcome: "Welcome to your admin dashboard",
+      totalUsers: "Total Users",
+      totalEvents: "Total Events",
+      totalVenues: "Total Venues",
+      totalBookings: "Total Bookings",
+      activeUsers: "Active Users",
+      upcomingEvents: "Upcoming Events",
+      totalRevenue: "Total Revenue",
+      categories: "Categories",
+      systemStatus: "System Status",
+      allSystemsOperational: "All systems operational",
+      apiStatus: "API System",
+      databaseStatus: "Database",
+      storageStatus: "Storage",
+      quickActions: "Quick Actions",
+      addEvent: "Add Event",
+      addUser: "Add User",
+      addVenue: "Add Venue",
+      viewReports: "View Reports",
+      errorTitle: "Failed to load dashboard",
+      tags: "Tags",
+      errorDescription:
+        "There was a problem loading the dashboard data. Please refresh the page and try again.",
+    },
+  },
 };
 
 export default en;
