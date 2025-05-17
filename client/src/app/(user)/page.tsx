@@ -56,7 +56,6 @@ export type EventType = {
     updatedAt: string;
 };
 
-// Animation variants
 const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -485,7 +484,6 @@ const HomePage = () => {
                 </section>
             )}
 
-            {/* Categories Section - New */}
             <section className="py-16 bg-gray-50 dark:bg-gray-900">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
@@ -563,7 +561,6 @@ const HomePage = () => {
                                 </div>
                             </motion.div>
                         )) : (
-                            // Show placeholder categories if none available
                             Array.from({ length: 6 }).map((_, index) => (
                                 <motion.div
                                     key={index}
@@ -587,9 +584,7 @@ const HomePage = () => {
                 </div>
             </section>
 
-            {/* All Events Section - Enhanced with Dynamic Layout */}
             <section className="py-16 bg-white dark:bg-gray-800 relative">
-                {/* Background decoration */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
                     <div className="absolute -top-48 right-0 w-96 h-96 bg-purple-100 dark:bg-purple-900/20 rounded-full opacity-20 blur-3xl"></div>
                     <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-100 dark:bg-indigo-900/20 rounded-full opacity-20 blur-3xl"></div>
@@ -629,7 +624,6 @@ const HomePage = () => {
                         </motion.p>
                     </motion.div>
 
-                    {/* Filters Bar */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -637,7 +631,6 @@ const HomePage = () => {
                         viewport={{ once: true }}
                         className="mb-8 flex flex-col sm:flex-row justify-between items-center gap-4 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700"
                     >
-                        {/* Search input */}
                         <div className="relative w-full sm:w-64 md:w-80">
                             <input
                                 type="text"
@@ -653,7 +646,6 @@ const HomePage = () => {
                             </div>
                         </div>
 
-                        {/* Category dropdown */}
                         <select
                             value={selectedCategory}
                             onChange={(e) => setSelectedCategory(e.target.value)}
@@ -667,7 +659,6 @@ const HomePage = () => {
                             ))}
                         </select>
 
-                        {/* View toggle buttons */}
                         <div className="flex items-center gap-2 ml-auto">
                             <button
                                 className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-all"
@@ -690,7 +681,6 @@ const HomePage = () => {
                         </div>
                     </motion.div>
 
-                    {/* Loading state */}
                     {loading && (
                         <motion.div
                             initial={{ opacity: 0 }}
@@ -724,7 +714,6 @@ const HomePage = () => {
                         </motion.div>
                     )}
 
-                    {/* Empty state */}
                     {!loading && filteredEvents.length === 0 && (
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -751,7 +740,6 @@ const HomePage = () => {
                         </motion.div>
                     )}
 
-                    {/* Events grid with staggered animation */}
                     {!loading && filteredEvents.length > 0 && (
                         <motion.div
                             variants={{
@@ -796,7 +784,6 @@ const HomePage = () => {
                         </motion.div>
                     )}
 
-                    {/* Replace the View All button */}
                     {filteredEvents.length > 8 && (
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -850,7 +837,6 @@ const HomePage = () => {
                 </div>
             </section>
 
-            {/* Venues Highlight Section - New */}
             {venues.length > 0 && (
                 <section className="py-16 bg-gray-50 dark:bg-gray-900">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -934,7 +920,6 @@ const HomePage = () => {
                 </section>
             )}
 
-            {/* CTA Section */}
             <section className="py-16 bg-gradient-to-br from-purple-700 to-indigo-800 relative overflow-hidden">
                 <div className="absolute inset-0 overflow-hidden">
                     <div className="absolute -top-24 -right-24 w-64 h-64 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
