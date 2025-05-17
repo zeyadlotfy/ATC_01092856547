@@ -193,37 +193,6 @@ The `system-design` directory contains detailed architectural diagrams and desig
 - JWT Authentication
 - Swagger
 
-## 💾 Database Configuration
-
-The project uses Prisma with MongoDB. Here's a basic guide to set up your database:
-
-1. Create a `.env` file in the server directory with your MongoDB connection string:
-
-```
-DATABASE_URL="mongodb+srv://username:password@cluster0.example.mongodb.net/bookly?retryWrites=true&w=majority"
-```
-
-2. Set up your Prisma schema in `prisma/schema.prisma`:
-
-```prisma
-generator client {
-  provider = "prisma-client-js"
-}
-
-datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
-}
-
-// Your models here
-```
-
-3. Apply the schema to your database:
-
-```bash
-npx prisma db push
-```
-
 ## 📜 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.

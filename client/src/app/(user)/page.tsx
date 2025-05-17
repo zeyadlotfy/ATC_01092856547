@@ -89,6 +89,71 @@ const fadeIn = {
     })
 };
 
+const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.12,
+            delayChildren: 0.3
+        }
+    }
+};
+
+const pulseAnimation = {
+    hidden: { scale: 0.9, opacity: 0 },
+    visible: {
+        scale: [0.9, 1.05, 1],
+        opacity: 1,
+        transition: {
+            duration: 0.8,
+            ease: "easeOut"
+        }
+    }
+};
+
+const floatingAnimation = {
+    initial: { y: 0 },
+    animate: {
+        y: [-10, 10, -10],
+        transition: {
+            duration: 6,
+            repeat: Infinity,
+            repeatType: "loop",
+            ease: "easeInOut"
+        }
+    }
+};
+
+const shimmerEffect = {
+    hidden: {
+        backgroundPosition: "200% 0",
+        opacity: 0.7
+    },
+    visible: {
+        backgroundPosition: "-200% 0",
+        opacity: 1,
+        transition: {
+            duration: 2.5,
+            ease: "easeInOut",
+            repeat: Infinity,
+            repeatType: "mirror"
+        }
+    }
+};
+
+const rotateAnimation = {
+    initial: { rotate: 0 },
+    animate: {
+        rotate: 360,
+        transition: {
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
+        }
+    }
+};
+
 const getCategoryIcon = (name: string): string => {
     const nameLC = name.toLowerCase();
     if (nameLC.includes("music")) return "🎵";
@@ -237,6 +302,45 @@ const HomePage = () => {
 
     return (
         <div className="min-h-screen bg-white dark:bg-gray-900" dir={isRtl ? "rtl" : "ltr"}>
+            <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+                <motion.div
+                    className="absolute top-20 right-[10%] w-72 h-72 rounded-full bg-purple-600/20 blur-[80px]"
+                    animate={{
+                        x: [0, 30, 0],
+                        y: [0, -40, 0],
+                    }}
+                    transition={{
+                        duration: 15,
+                        repeat: Infinity,
+                        repeatType: "mirror",
+                    }}
+                />
+                <motion.div
+                    className="absolute bottom-10 left-[15%] w-96 h-96 rounded-full bg-indigo-500/20 blur-[100px]"
+                    animate={{
+                        x: [0, -50, 0],
+                        y: [0, 60, 0],
+                    }}
+                    transition={{
+                        duration: 18,
+                        repeat: Infinity,
+                        repeatType: "mirror",
+                        delay: 2
+                    }}
+                />
+                <motion.div
+                    className="absolute top-1/2 left-1/3 w-64 h-64 rounded-full bg-pink-500/10 blur-[70px]"
+                    animate={{
+                        scale: [1, 1.2, 1],
+                        opacity: [0.3, 0.6, 0.3],
+                    }}
+                    transition={{
+                        duration: 12,
+                        repeat: Infinity,
+                        repeatType: "mirror",
+                    }}
+                />
+            </div>
             <Hero
                 isDark={isDark}
                 isRtl={isRtl}
@@ -352,17 +456,29 @@ const HomePage = () => {
                             {/* Arrow Navigation */}
                             <button
                                 onClick={prevSlide}
-                                className="absolute top-1/2 left-4 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/30 backdrop-blur-sm hover:bg-white/60 transition-colors duration-300 flex items-center justify-center shadow-lg"
+                                className="absolute top-1/2 left-4 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/30 backdrop-blur-sm hover:bg-white/60 transition-all duration-300 flex items-center justify-center shadow-lg border border-white/20 group"
                                 aria-label="Previous slide"
                             >
-                                {isRtl ? <ChevronRight className="h-6 w-6 text-white" /> : <ChevronLeft className="h-6 w-6 text-white" />}
+                                <motion.span
+                                    initial={{ x: 0 }}
+                                    whileHover={{ x: isRtl ? 3 : -3 }}
+                                    className="flex items-center justify-center"
+                                >
+                                    {isRtl ? <ChevronRight className="h-6 w-6 text-white group-hover:text-gray-900" /> : <ChevronLeft className="h-6 w-6 text-white group-hover:text-gray-900" />}
+                                </motion.span>
                             </button>
                             <button
                                 onClick={nextSlide}
-                                className="absolute top-1/2 right-4 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/30 backdrop-blur-sm hover:bg-white/60 transition-colors duration-300 flex items-center justify-center shadow-lg"
+                                className="absolute top-1/2 right-4 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/30 backdrop-blur-sm hover:bg-white/60 transition-all duration-300 flex items-center justify-center shadow-lg border border-white/20 group"
                                 aria-label="Next slide"
                             >
-                                {isRtl ? <ChevronLeft className="h-6 w-6 text-white" /> : <ChevronRight className="h-6 w-6 text-white" />}
+                                <motion.span
+                                    initial={{ x: 0 }}
+                                    whileHover={{ x: isRtl ? -3 : 3 }}
+                                    className="flex items-center justify-center"
+                                >
+                                    {isRtl ? <ChevronLeft className="h-6 w-6 text-white group-hover:text-gray-900" /> : <ChevronRight className="h-6 w-6 text-white group-hover:text-gray-900" />}
+                                </motion.span>
                             </button>
                         </div>
                     </div>
@@ -399,32 +515,52 @@ const HomePage = () => {
                         </motion.p>
                     </motion.div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
+                    <motion.div
+                        variants={staggerContainer}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-50px" }}
+                        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6"
+                    >
                         {categories.length > 0 ? categories.slice(0, 6).map((category, index) => (
                             <motion.div
                                 key={category.id}
-                                variants={fadeIn}
-                                custom={index}
-                                initial="hidden"
-                                whileInView="visible"
-                                viewport={{ once: true }}
-                                whileHover={{ scale: 1.05 }}
-                                className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-purple-200 dark:hover:shadow-purple-900/30 border border-gray-100 dark:border-gray-700 hover:border-purple-300 dark:hover:border-purple-800"
+                                variants={pulseAnimation}
+                                whileHover={{
+                                    scale: 1.08,
+                                    boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+                                    borderColor: isDark ? "rgb(147, 51, 234)" : "rgb(168, 85, 247)"
+                                }}
+                                className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-500 hover:shadow-purple-200 dark:hover:shadow-purple-900/30 border border-gray-100 dark:border-gray-700"
                             >
-                                <Link href={`/events?category=${category.id}`}>
-                                    <div className="p-6 text-center">
-                                        <div className="text-4xl mb-4">
-                                            {getCategoryIcon(locale === 'ar' ? category.nameAr : category.name)}
-                                        </div>
-                                        <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
-                                            {locale === 'ar' ? category.nameAr : category.name}
-                                        </h3>
-                                        <div className="mt-3 inline-flex items-center text-sm font-medium text-purple-600 dark:text-purple-400">
-                                            {t("home.categories.browse")}
-                                            {isRtl ? <ChevronLeft className="ml-1 h-4 w-4" /> : <ChevronRight className="ml-1 h-4 w-4" />}
-                                        </div>
-                                    </div>
-                                </Link>
+                                <div className="p-6 text-center">
+                                    <motion.div
+                                        className="text-4xl mb-4 inline-block"
+                                        animate={{
+                                            rotate: [0, 10, 0, -10, 0],
+                                            scale: [1, 1.1, 1, 1.1, 1]
+                                        }}
+                                        transition={{
+                                            duration: 4,
+                                            repeat: Infinity,
+                                            repeatDelay: Math.random() * 2 + 3
+                                        }}
+                                    >
+                                        {getCategoryIcon(locale === 'ar' ? category.nameAr : category.name)}
+                                    </motion.div>
+
+                                    <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
+                                        {locale === 'ar' ? category.nameAr : category.name}
+                                    </h3>
+
+                                    <motion.div
+                                        className="w-12 h-1 bg-purple-400/60 dark:bg-purple-600/60 rounded-full mx-auto mt-3"
+                                        initial={{ width: 0 }}
+                                        whileInView={{ width: 48 }}
+                                        transition={{ delay: 0.2 + index * 0.1, duration: 0.8 }}
+                                        viewport={{ once: true }}
+                                    />
+                                </div>
                             </motion.div>
                         )) : (
                             // Show placeholder categories if none available
@@ -445,25 +581,9 @@ const HomePage = () => {
                                 </motion.div>
                             ))
                         )}
-                    </div>
+                    </motion.div>
 
-                    {categories.length > 6 && (
-                        <motion.div
-                            variants={fadeIn}
-                            custom={6}
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true }}
-                            className="mt-10 text-center"
-                        >
-                            <Link href="/events/categories">
-                                <div className="inline-flex items-center px-6 py-3 bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 hover:bg-purple-200 dark:hover:bg-purple-900/50 rounded-full text-lg font-medium transition-colors duration-300">
-                                    {t("home.categories.viewAll")}
-                                    {isRtl ? <ArrowLeft className="ml-2 h-5 w-5" /> : <ArrowRight className="ml-2 h-5 w-5" />}
-                                </div>
-                            </Link>
-                        </motion.div>
-                    )}
+
                 </div>
             </section>
 
@@ -576,13 +696,31 @@ const HomePage = () => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className="flex flex-col justify-center items-center py-32"
+                            className="flex flex-col justify-center items-center py-20"
                         >
-                            <div className="w-16 h-16 relative">
-                                <div className="w-full h-full rounded-full border-4 border-purple-600/30"></div>
-                                <div className="w-full h-full absolute top-0 left-0 rounded-full border-t-4 border-r-4 border-purple-600 animate-spin"></div>
+                            <div className="relative w-20 h-20">
+                                <motion.div
+                                    className="absolute inset-0 rounded-full border-4 border-transparent border-t-4 border-r-4 border-purple-600"
+                                    animate={{ rotate: 360 }}
+                                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                                />
+                                <motion.div
+                                    className="absolute inset-2 rounded-full border-4 border-transparent border-t-4 border-l-4 border-indigo-500"
+                                    animate={{ rotate: -360 }}
+                                    transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                                />
+                                <motion.div
+                                    className="absolute inset-0 w-full h-full flex items-center justify-center"
+                                    initial={{ scale: 0 }}
+                                    animate={{ scale: [0, 1, 0] }}
+                                    transition={{ duration: 2, repeat: Infinity }}
+                                >
+                                    <div className="w-3 h-3 bg-purple-600 rounded-full" />
+                                </motion.div>
                             </div>
-                            <p className="mt-4 text-gray-600 dark:text-gray-400">{t("home.events.loading")}</p>
+                            <p className="mt-6 text-gray-600 dark:text-gray-400 animate-pulse">
+                                {t("home.events.loading")}
+                            </p>
                         </motion.div>
                     )}
 
@@ -658,7 +796,7 @@ const HomePage = () => {
                         </motion.div>
                     )}
 
-                    {/* View all button with enhanced animation */}
+                    {/* Replace the View All button */}
                     {filteredEvents.length > 8 && (
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -674,20 +812,36 @@ const HomePage = () => {
                                         boxShadow: "0 4px 20px rgba(124, 58, 237, 0.3)"
                                     }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="group px-8 py-3 rounded-full font-medium transition-all duration-300 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white shadow-md hover:shadow-xl"
+                                    className="relative group px-8 py-3 rounded-full font-medium transition-all duration-300 bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md overflow-hidden"
                                 >
-                                    <span className="flex items-center">
+                                    <motion.span
+                                        className="absolute inset-0 w-full h-full bg-gradient-to-r from-purple-400/20 to-transparent"
+                                        initial={{ x: '-100%' }}
+                                        whileHover={{ x: '100%' }}
+                                        transition={{ duration: 0.8 }}
+                                    />
+
+                                    <span className="flex items-center relative z-10">
                                         {t("home.events.viewAll")}
-                                        <svg
+                                        <motion.svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             fill="none"
                                             viewBox="0 0 24 24"
                                             strokeWidth={2}
                                             stroke="currentColor"
-                                            className={`w-4 h-4 ${isRtl ? 'mr-2 group-hover:mr-3' : 'ml-2 group-hover:ml-3'} transition-all duration-300`}
+                                            className={`w-4 h-4 ${isRtl ? 'mr-2' : 'ml-2'} transition-all duration-300`}
+                                            animate={{
+                                                x: isRtl ? [-5, 0, -5] : [0, 5, 0],
+                                                opacity: [1, 0.8, 1]
+                                            }}
+                                            transition={{
+                                                duration: 2,
+                                                repeat: Infinity,
+                                                repeatType: "loop"
+                                            }}
                                         >
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                                        </svg>
+                                        </motion.svg>
                                     </span>
                                 </motion.button>
                             </Link>
@@ -782,7 +936,6 @@ const HomePage = () => {
 
             {/* CTA Section */}
             <section className="py-16 bg-gradient-to-br from-purple-700 to-indigo-800 relative overflow-hidden">
-                {/* Background decoration */}
                 <div className="absolute inset-0 overflow-hidden">
                     <div className="absolute -top-24 -right-24 w-64 h-64 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
                     <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
@@ -808,7 +961,7 @@ const HomePage = () => {
                                     {t("home.cta.registerNow")}
                                 </div>
                             </Link>
-                            <Link href="/contact">
+                            <Link href="/">
                                 <div className="px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105">
                                     {t("home.cta.contactUs")}
                                 </div>
@@ -818,7 +971,6 @@ const HomePage = () => {
                 </div>
             </section>
 
-            {/* Add custom styles for animations */}
             <style jsx global>{`
         @keyframes blob {
           0% {

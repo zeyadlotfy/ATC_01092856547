@@ -506,6 +506,18 @@ const en = {
       city: "City",
       capacity: "Capacity",
     },
+    notFound: "Venue Not Found",
+    notFoundDesc:
+      "The venue you're looking for doesn't exist or may have been removed.",
+    errorLoading: "Error Loading Venue",
+    errorDesc:
+      "There was a problem loading this venue. Please try again later.",
+    backToVenues: "Back to Venues",
+    details: "Venue Details",
+    upcomingEvents: "Upcoming Events",
+    noUpcomingEvents: "No upcoming events at this venue",
+    viewAllEvents: "View all {{count}} events",
+    notAvailable: "Not available",
   },
   bookings: {
     subtitle: "Manage event bookings",
@@ -747,9 +759,11 @@ const en = {
     daysAway: "IN {{days}} DAYS",
     loading: "Loading event details...",
     errorLoading: "Error Loading Event",
-    errorDesc: "There was a problem loading this event. Please try again later.",
+    errorDesc:
+      "There was a problem loading this event. Please try again later.",
     notFound: "Event Not Found",
-    notFoundDesc: "The event you're looking for doesn't exist or may have been removed.",
+    notFoundDesc:
+      "The event you're looking for doesn't exist or may have been removed.",
     notFoundError: "Event not found",
     backToEvents: "Back to Events",
     about: "About This Event",
@@ -839,7 +853,8 @@ const en = {
   profile: {
     loading: "Loading your profile...",
     error: "Error Loading Profile",
-    errorDescription: "There was a problem loading your profile information. Please try again.",
+    errorDescription:
+      "There was a problem loading your profile information. Please try again.",
     tryAgain: "Try Again",
     noUser: "No User Found",
     loginRequired: "You need to be logged in to view your profile.",
@@ -861,7 +876,7 @@ const en = {
     saveChanges: "Save Changes",
     active: "Active",
     inactive: "Inactive",
-    accountInfo: "Account Information", 
+    accountInfo: "Account Information",
     memberSince: "Member Since",
     lastUpdate: "Last Updated",
     language: "Language Preference",
@@ -871,20 +886,21 @@ const en = {
     actions: "Account Actions",
     logout: "Sign Out",
     notAvailable: "Not available",
-    loggedOut: "You have been signed out"
+    loggedOut: "You have been signed out",
   },
   footer: {
-    about: "Bookly is your premier platform for discovering, booking, and managing event tickets across various venues and categories.",
+    about:
+      "Bookly is your premier platform for discovering, booking, and managing event tickets across various venues and categories.",
     quickLinks: "Quick Links",
     userAccount: "User Account",
     contact: "Contact Us",
     language: "Choose Language",
-    address: "123 Event Plaza, Suite 500, New York, NY 10001",
+    address: "online",
     newsletter: {
       title: "Subscribe to Our Newsletter",
       subtitle: "Stay updated with the latest events and promotions",
       placeholder: "Enter your email",
-      button: "Subscribe"
+      button: "Subscribe",
     },
     copyright: "All rights reserved.",
     links: {
@@ -899,14 +915,14 @@ const en = {
       bookings: "My Bookings",
       terms: "Terms of Service",
       privacy: "Privacy Policy",
-      faq: "FAQ"
-    }
+      faq: "FAQ",
+    },
   },
   notifications: {
     title: "Notifications",
     empty: "No notifications yet",
     closeButton: "Close",
-    markAllRead: "Mark all as read"
+    markAllRead: "Mark all as read",
   },
 };
 

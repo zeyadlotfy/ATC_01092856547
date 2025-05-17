@@ -94,14 +94,9 @@ const Footer: React.FC = () => {
                                         {t("footer.links.venues")}
                                     </Link>
                                 </li>
+
                                 <li>
-                                    <Link href="/about" className="inline-flex items-center hover:text-purple-400 transition-colors">
-                                        {isRtl ? <ChevronLeft className="h-4 w-4 ml-1" /> : <ChevronRight className="h-4 w-4 mr-1" />}
-                                        {t("footer.links.about")}
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="/contact" className="inline-flex items-center hover:text-purple-400 transition-colors">
+                                    <Link href="/" className="inline-flex items-center hover:text-purple-400 transition-colors">
                                         {isRtl ? <ChevronLeft className="h-4 w-4 ml-1" /> : <ChevronRight className="h-4 w-4 mr-1" />}
                                         {t("footer.links.contact")}
                                     </Link>
@@ -152,10 +147,7 @@ const Footer: React.FC = () => {
                                     <Mail className={`h-5 w-5 mt-0.5 ${isRtl ? 'ml-3' : 'mr-3'} text-purple-500`} />
                                     <span>info@bookly.com</span>
                                 </li>
-                                <li className="flex items-start">
-                                    <Phone className={`h-5 w-5 mt-0.5 ${isRtl ? 'ml-3' : 'mr-3'} text-purple-500`} />
-                                    <span>+1 (800) 123-4567</span>
-                                </li>
+
                                 <li className="flex items-start">
                                     <MapPin className={`h-5 w-5 mt-0.5 ${isRtl ? 'ml-3' : 'mr-3'} text-purple-500`} />
                                     <span>{t("footer.address")}</span>
@@ -168,30 +160,6 @@ const Footer: React.FC = () => {
                 </div>
             </div>
 
-            <div className="bg-gray-800 py-8">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex flex-col md:flex-row md:items-center justify-between">
-                        <div className="mb-6 md:mb-0">
-                            <h3 className="text-lg font-semibold text-white mb-1">
-                                {t("footer.newsletter.title")}
-                            </h3>
-                            <p className="text-gray-400 text-sm">
-                                {t("footer.newsletter.subtitle")}
-                            </p>
-                        </div>
-                        <div className="flex flex-col sm:flex-row gap-4">
-                            <input
-                                type="email"
-                                placeholder={t("footer.newsletter.placeholder")}
-                                className={`px-4 py-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 ${isRtl ? 'text-right' : 'text-left'}`}
-                            />
-                            <button className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors">
-                                {t("footer.newsletter.button")}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <div className="border-t border-gray-800 py-6">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -201,13 +169,13 @@ const Footer: React.FC = () => {
                             <span>{t("footer.copyright")}</span>
                         </div>
                         <div className="flex justify-center md:justify-end space-x-6 rtl:space-x-reverse">
-                            <Link href="/terms" className="text-sm text-gray-400 hover:text-white transition-colors">
+                            <Link href="/" className="text-sm text-gray-400 hover:text-white transition-colors">
                                 {t("footer.links.terms")}
                             </Link>
-                            <Link href="/privacy" className="text-sm text-gray-400 hover:text-white transition-colors">
+                            <Link href="/" className="text-sm text-gray-400 hover:text-white transition-colors">
                                 {t("footer.links.privacy")}
                             </Link>
-                            <Link href="/faq" className="text-sm text-gray-400 hover:text-white transition-colors">
+                            <Link href="/" className="text-sm text-gray-400 hover:text-white transition-colors">
                                 {t("footer.links.faq")}
                             </Link>
                         </div>
