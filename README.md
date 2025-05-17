@@ -139,10 +139,6 @@ The `system-design` directory contains detailed architectural diagrams and desig
 - JWT Authentication
 - Swagger
 
-## 📜 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ## 👤 Author
 
 Created by [Zeyad Lotfy](https://zeyadlotfy.vercel.app)
