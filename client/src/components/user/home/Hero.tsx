@@ -96,7 +96,7 @@ const Hero = ({ isDark, isRtl, t, locale, searchTerm = "", onSearchChange }: Her
             trending: "TRENDING",
             featuredEvent: "FEATURED EVENT",
             summerFestival: "Summer Music Festival",
-            dateRange: "Aug 15-17, 2023"
+            dateRange: "Aug 15-17, 2025"
         },
         ar: {
             appName: "بوكلى",
@@ -111,7 +111,7 @@ const Hero = ({ isDark, isRtl, t, locale, searchTerm = "", onSearchChange }: Her
             trending: "رائج",
             featuredEvent: "فعالية مميزة",
             summerFestival: "مهرجان الصيف الموسيقي",
-            dateRange: "١٥-١٧ أغسطس، ٢٠٢٣",
+            dateRange: "١٥-١٧ أغسطس، ٢٠٢٥",
             venues: ""
         }
     };

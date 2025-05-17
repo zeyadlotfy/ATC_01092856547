@@ -47,7 +47,6 @@ export function useTranslations() {
     const currentLocale = getCookie("locale")?.toString() || "en";
     setLocale(currentLocale === "ar" ? "ar" : "en");
     setIsLoaded(true);
-    console.log("useTranslations hook - Current locale:", currentLocale);
   }, []);
 
   const dictionary = dictionaries[locale] || dictionaries.en;

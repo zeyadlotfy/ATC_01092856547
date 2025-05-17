@@ -881,6 +881,7 @@ const HomePage = () => {
                                 >
                                     <div className="h-48 w-full bg-gradient-to-br from-purple-500/30 to-indigo-500/30 flex items-center justify-center">
                                         <MapPin className="h-12 w-12 text-gray-400 dark:text-gray-500" />
+
                                     </div>
                                     <div className="p-6">
                                         <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">

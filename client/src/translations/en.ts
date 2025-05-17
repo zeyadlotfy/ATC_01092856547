@@ -532,10 +532,7 @@ const en = {
     statusUpdateSuccess: "Booking status updated successfully",
     statusUpdateError: "Failed to update booking status",
     noBookings: "No bookings found",
-
-    // Booking fields
     bookingInfo: "Booking Information",
-    eventInfo: "Event Information",
     bookingId: "Booking ID",
     status: "Status",
     quantity: "Quantity",
@@ -546,20 +543,17 @@ const en = {
     rating: "Rating",
     price: "Price",
     total: "Total",
-
     statusBooking: {
       pending: "Pending",
       confirmed: "Confirmed",
       cancelled: "Cancelled",
       completed: "Completed",
     },
-
     actions: {
       view: "View",
       edit: "Edit",
       delete: "Delete",
     },
-
     table: {
       booking: "Booking",
       event: "Event",
@@ -567,7 +561,6 @@ const en = {
       details: "Details",
       actions: "Actions",
     },
-
     delete: {
       title: "Delete Booking",
       confirmation: "Are you sure you want to delete booking ID: {{id}}?",
@@ -607,6 +600,18 @@ const en = {
     cancelSuccess: "Booking cancelled successfully",
     cancelError: "Error cancelling booking",
     downloadTicketInfo: "Ticket download feature coming soon!",
+    to: "to",
+    cancel: "Cancel",
+    close: "Close",
+    viewDetails: "View Details",
+    notAvailable: "Not available",
+    ticketId: "Ticket ID",
+    scanQRCode: "Scan QR Code",
+    presentAtEntry: "Present at entry",
+    ticketDownloadDate: "Downloaded on",
+    generatingTicket: "Generating ticket...",
+    ticketDownloaded: "Ticket downloaded successfully",
+    ticketGenerationError: "Error generating ticket",
   },
   user: {
     navbar: {

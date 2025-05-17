@@ -29,6 +29,7 @@ import {
     Settings
 } from "lucide-react";
 import type { EventType } from "@/app/(user)/page";
+import { useTicketDownload } from "@/components/user/my-bookings/Ticket";
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -212,9 +213,26 @@ const MyBookingsPage = () => {
             toast.error(t("bookings.cancelError"));
         }
     };
+    const { generateTicketPDF } = useTicketDownload(t);
 
-    const downloadTicket = (bookingId: string) => {
-        toast.info(t("bookings.downloadTicketInfo"));
+
+    const downloadTicket = async (bookingId: string) => {
+        const booking = bookings.find(b => b.id === bookingId);
+
+        if (!booking) {
+            toast.error(t("bookings.bookingNotFound"));
+            return;
+        }
+
+        try {
+
+            await generateTicketPDF(
+                { ...booking, event: booking.event ?? {} },
+                locale,
+                theme ?? "light"
+            );
+        } catch (error) {
+        }
     };
 
     const getStatusBadge = (status: string) => {
