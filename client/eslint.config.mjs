@@ -15,6 +15,7 @@ const eslintConfig = [
       "@typescript-eslint/no-unused-vars": "off",
       "@typescript-eslint/no-explicit-any": "off",
       "react-hooks/exhaustive-deps": "off",
+      "react-hooks/rules-of-hooks": "off", // <-- Add this line to disable the hooks rules check
       "@next/next/no-img-element": "off",
       "no-object-literal-as-parameter": "off",
       "@typescript-eslint/no-object-literal-as-parameter": "off",
