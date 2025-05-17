@@ -836,6 +836,14 @@ const en = {
     reserveTickets: "Reserve {{count}} Tickets",
     ticketsReserved: "Your tickets have been reserved. Thank you!",
   },
+  notFound: {
+    title: "Page Not Found",
+    description:
+      "The page you're looking for doesn't exist or has been moved to another dimension.",
+    backHome: "Return to Home",
+    tryAgain: "Try Again ({{count}})",
+    portalOpening: "Opening Portal...",
+  },
   hero: {
     title1: "Discover & Book",
     title2: "Amazing Events",

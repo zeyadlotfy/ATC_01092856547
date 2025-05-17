@@ -927,6 +927,13 @@ const ar = {
     closeButton: "إغلاق",
     markAllRead: "تعيين الكل كمقروء",
   },
+  notFound: {
+    title: "الصفحة غير موجودة",
+    description: "الصفحة التي تبحث عنها غير موجودة أو تم نقلها إلى بعد آخر.",
+    backHome: "العودة إلى الرئيسية",
+    tryAgain: "حاول مرة أخرى ({{count}})",
+    portalOpening: "جاري فتح البوابة...",
+  },
   admin: {
     dashboard: {
       goodMorning: "صباح الخير",
